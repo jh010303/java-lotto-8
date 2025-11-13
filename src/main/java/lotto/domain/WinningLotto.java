@@ -40,19 +40,19 @@ public class WinningLotto {
     }
 
     private List<Integer> validateWinnerNumbers(String winnerNumbers) {
-        checkWinnerPattern(winnerNumbers);
-        List<Integer> convertedWinnerNumbers = toIntegerList(winnerNumbers);
+        List<Integer> convertedWinnerNumbers = convertIntegerList(winnerNumbers);
         checkWinnerNumber(convertedWinnerNumbers);
         return convertedWinnerNumbers;
     }
 
-    private void checkWinnerPattern(String winnerNumbers) {
-        if(!winnerNumbers.matches(WINNER_REGEX)) {
+    // convertIntegerList에 변환, 검증이 다 들어있음
+    private List<Integer> convertIntegerList(String winnerNumbers) {
+        try {
+            return Arrays.stream(winnerNumbers.split(SPLIT_PATTERN)).map(Converter::ToInt).toList();
+        }
+        catch (Exception e) {
             throw new IllegalArgumentException(WINNER_NUMBER_STYLE_NOT_MATCH.getMessage());
         }
-    }
-    private List<Integer> toIntegerList(String winnerNumbers) {
-        return Arrays.stream(winnerNumbers.split(SPLIT_PATTERN)).map(Converter::ToInt).toList();
     }
 
     private void checkWinnerNumber(List<Integer> winnerNumbers) {
@@ -61,22 +61,24 @@ public class WinningLotto {
         winnerNumbers.forEach(this::checkNumber);
     }
 
-    private void checkWinnerNumberSize(List<Integer> winnerNumbers){
+    private void checkWinnerNumberSize(List<Integer> winnerNumbers) {
         if(winnerNumbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(WINNER_NUMBER_OUT_OF_SIZE.getMessage());
         }
     }
 
     private int validateBonusNumber(String bonusNumber) {
-        checkBonusPattern(bonusNumber);
-        int convertedBonusNumber = Integer.parseInt(bonusNumber);
+        int convertedBonusNumber = convertBonusNumber(bonusNumber);
         checkNumber(convertedBonusNumber);
         checkBonusDuplicate(convertedBonusNumber);
         return convertedBonusNumber;
     }
 
-    private void checkBonusPattern(String bonusPattern) {
-        if(!bonusPattern.matches(BONUS_PATTERN)) {
+    // convertBonusNumber에 변환, 검증이 다 들어있음
+    private int convertBonusNumber(String bounsNumber) {
+        try {
+            return Converter.ToInt(bounsNumber);
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(BONUS_NUMBER_STYLE_NOT_MATCH.getMessage());
         }
     }

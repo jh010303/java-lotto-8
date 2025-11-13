@@ -12,8 +12,6 @@ import static lotto.constants.LottoVariable.*;
 
 public class LottoMachine {
     private int lottoPurchasePrice;
-    private long profit;
-    private double rate;
 
     private static LottoMachine instance;
 
@@ -62,24 +60,11 @@ public class LottoMachine {
         return convertedPrice;
     }
 
-    public void setProfit(long profit) {
-        this.profit = profit;
-        setRate();
-    }
-
-    public double getRate() {
-        return rate*100;
-    }
-
-    private void setRate() {
-        this.rate = (double) profit /lottoPurchasePrice;
+    public List<Integer> extractLottoNumbers() {
+        return Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_RANGE_MIN,LOTTO_NUMBER_RANGE_MAX,LOTTO_NUMBER_COUNT);
     }
 
     public int getLottoAmount() {
         return lottoPurchasePrice / LOTTO_PRICE;
-    }
-
-    public List<Integer> extractLottoNumbers() {
-        return Randoms.pickUniqueNumbersInRange(LOTTO_NUMBER_RANGE_MIN,LOTTO_NUMBER_RANGE_MAX,LOTTO_NUMBER_COUNT);
     }
 }

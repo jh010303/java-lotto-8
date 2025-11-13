@@ -1,9 +1,6 @@
 package lotto.service;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
-import lotto.domain.Lottos;
-import lotto.domain.WinningRecord;
+import lotto.domain.*;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +22,7 @@ public class LottoQueryService {
     }
 
     public double getRate() {
-        LottoMachine lottoMachine = LottoMachine.getInstance();
-        return lottoMachine.getRate();
+        Store store = Store.getInstance();
+        return store.getRate();
     }
 }

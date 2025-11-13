@@ -43,7 +43,9 @@ public class LottoCommandService {
     public void setRate() {
         LottoMachine lottoMachine = LottoMachine.getInstance();
         WinningRecord winningRecord = WinningRecord.getInstance();
+        Store store = Store.getInstance();
         long profit = winningRecord.getTotalReward();
-        lottoMachine.setProfit(profit);
+        int lottoPurchasePrice = lottoMachine.getLottoPurchasePrice();
+        store.setProfit(profit,lottoPurchasePrice);
     }
 }
